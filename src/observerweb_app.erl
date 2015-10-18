@@ -35,18 +35,6 @@
   {ok, pid(), State :: term()} |
   {error, Reason :: term()}).
 start(_StartType, _StartArgs) ->
-  Dispatch = cowboy_router:compile([
-    {'_', [
-      {"/", cowboy_static, {priv_file, observerweb, "index.html"}},
-      {"/css/[...]", cowboy_static, {priv_dir, observerweb, "css"}},
-      {"/js/[...]", cowboy_static, {priv_dir, observerweb, "js"}},
-      {"/img/[...]", cowboy_static, {priv_dir, observerweb, "img"}},
-      {"/info", observerweb_handler, []}
-    ]}
-  ]),
-  {ok, _} = cowboy:start_http(http, 100, [{port, 8080}], [
-    {env, [{dispatch, Dispatch}]}
-  ]),
   dets:open_file(observer_table, [{type, set}, {file, "observer_table"}]),
   dets:close(observer_table),
   observerweb_sup:start_link().
