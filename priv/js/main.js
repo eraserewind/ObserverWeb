@@ -454,13 +454,13 @@ function displayInfo(id, data) {
 
 function sendAsyncRequest(xmlhttp, qs, fun) {
     xmlhttp.onreadystatechange = fun;
-    xmlhttp.open("POST", "info", true);
+    xmlhttp.open("POST", "/observer/info", true);
     xmlhttp.send(qs);
 }
 
 function sendSyncRequest(qs) {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "info", false);
+    xmlhttp.open("POST", "/observer/info", false);
     xmlhttp.send(qs);
     return xmlhttp.responseText;
 }
